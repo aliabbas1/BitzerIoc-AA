@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<div>
+    <form name="usersetupform" class="usersetupform">
+        <div class="users-header">
+            <div class="row col-sm-12">
+                <span class="lbl-user">Setup User</span>
+                <div class="optdiv-user">
+                    <a class="btn-user btn" ng-href="/admin/users">Cancel</a>
+                    <button id="setup-user-btn" class="btn-user btn" ng-disabled="usersetupform.$invalid" ng-click="AddUpdateUser()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-horizontal col-sm-12 user-setup">
+                <input type="hidden" id="UserId" ng-bind="UserId" />
+                <input type="hidden" id="OldRoleId" ng-bind="HiddenRoleId" />
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5">
+                        <span ng-show="alreadyEmailMsgs" class="error-msg">User already exists.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Email</label></div>
+                    <div class="col-sm-4">
+                        <input type="email" name="Email" class="form-control" ng-blur="AlreadyExist()" validate-email ng-model="Email" id="Email" required />
+                    </div>
+                    <div class="col-sm-5">
+                        <span ng-show="usersetupform.Email.$touched && usersetupform.Email.$error.required" class="error-msg">Please enter an email!</span>
+                        <span ng-show="usersetupform.Email.$touched && usersetupform.Email.$error.email" class="error-msg">Please enter a valid email</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Name</label></div>
+                    <div class="col-sm-4">
+                        <input type="text" name="Name" class="form-control" ng-model="Name" id="Name" ng-bind="Name" required />
+                    </div>
+                    <div class="col-sm-5">
+                        <span ng-show="usersetupform.Name.$touched && usersetupform.Name.$invalid" class="error-msg">Please enter a name!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Phone</label></div>
+                    <div class="col-sm-4">
+                        <input type="text" ng-pattern="/^\d{0,10}(\.\d{1,9})?$/" name="Phone" class="form-control" ng-bind="Phone" ng-model="Phone" placeholder="e.g. +4523456789" id="Phone" />
+                    </div>
+                    <div class="col-sm-5">
+                        <span ng-show="usersetupform.Phone.$touched && usersetupform.Phone.$error.pattern" class="error-msg">Please enter valid phone number</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2"><label>User Profile</label></div>
+                    <div class="col-sm-4">
+                        @*RoleId use as ng-selected when click on edit button in user list*@
+                        <select class="form-control" ng-model="RoleId" id="Roles" ng-options="Roles.roleId as Roles.roleName for Roles in RolesList" required>
+                            <option ng-bind="Role"></option>
+                        </select>
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <div class="col-sm-2"><label>Enabled</label></div>
+                <div class="col-sm-4">
+                    <input type="checkbox" class="disabled" ng-model="IsEnable" id="IsEnable" ng-bind="IsEnable" />
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </form>
+</div>

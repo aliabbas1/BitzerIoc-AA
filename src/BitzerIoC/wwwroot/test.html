@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(function ()
+        {
+            var model = { GatewayId: 0, GatewayName:null, Status: true, UpdatedBy: "Admin" };
+            $.ajax({
+            type: "POST",
+            data: JSON.stringify(model),
+            url: "http://localhost:5003/api/GatewayOperations",
+            contentType: "application/json"
+             
+            });
+        });
+    </script>
+</body>
+</html>

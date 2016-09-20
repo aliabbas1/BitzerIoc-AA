@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    var email = User.Claims.SingleOrDefault(c => c.Type.Equals("email")).Value.ToString();
+}
+<div>
+    <form name="gatewaysetupform" class="gatewaysetupform">
+        <div class="gatways-header">
+            <div class="row col-sm-12">
+                <span class="lbl-gateway">Setup gateway</span>
+                <div class="optdiv-gateway">
+                    <a class="btn-gateway btn" ng-href="/admin/gateways">Cancel</a>
+                    <button id="btnCreateGateway" name="btnCreateGateway" class="btn-gateway btn" ng-disabled="gatewaysetupform.$invalid" ng-click="AddUpdateGateway()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-horizontal col-sm-12 user-setup">
+
+                <input type="hidden" value="@email" name="hiddenEmail" id="hiddenEmail" />
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Gateway name</label></div>
+                    <div class="col-sm-4">
+                        <input type="text" name="txtGatewayName" class="form-control" ng-model="txtGatewayName" required id="txtGatewayName" />
+                    </div>
+                    <div class="col-sm-4">
+                        <span ng-show="gatewaysetupform.txtGatewayName.$touched && gatewaysetupform.txtGatewayName.$error.required" class="error-msg">Please enter the Gateway name!</span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Gateway Id</label></div>
+                    <div class="col-sm-4"> @*/^([0-9a-zA-Z][0-9a-zA-Z]:){5}([0-9a-zA-Z][0-9a-zA-Z])/*@
+                        <input type="text" name="txtGatewayMac" ng-pattern="/^([0-9a-zA-Z][0-9a-zA-Z]){5}([0-9a-zA-Z][0-9a-zA-Z])/" ng-blur="ValidateGateway()" class="form-control" ng-model="txtGatewayMac" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <span ng-show="gatewaysetupform.txtGatewayMac.$touched && gatewaysetupform.txtGatewayMac.$error.required" class="error-msg">Please enter a Gateway Id!</span>
+                        <span ng-show="alreadyExistGateway" class="error-msg">Gateway is already in use.</span>
+                        <span ng-show="gatewaysetupform.txtGatewayMac.$touched && gatewaysetupform.txtGatewayMac.$error.pattern" class="error-msg">Please enter valid gateway id</span>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2"><label>Enabled</label></div>
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="disabled" ng-model="chkIsEnable" name="chkIsEnable" id="chkIsEnable" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

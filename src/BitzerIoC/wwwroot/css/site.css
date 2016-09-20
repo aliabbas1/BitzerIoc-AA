@@ -1,0 +1,330 @@
+﻿
+body {
+    background-color: #E6E6E6;
+}
+
+.clear {
+    clear: both;
+}
+
+.edit-btn {
+    text-decoration: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #222;
+}
+
+    .edit-btn:hover {
+        color: #222;
+    }
+
+.error-msg {
+    color: #b51a1d;
+}
+
+.success-msg {
+    color: #15c027;
+}
+
+.setup-btn {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.usersetupform .btn[disabled] {
+    cursor: default !important;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    height: 100%;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mr15 {
+    margin-right: 15px;
+}
+
+/*------------------------------navbar menu-------------------------------*/
+.navbar {
+    border-radius: 0px;
+    margin-bottom: 0px !important;
+}
+
+.navbar-header {
+    position: relative;
+}
+
+.navbar-nav {
+    margin: 0px !important;
+}
+
+.navbar-inverse {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+.navbar-brand {
+    height: 80px !important;
+    padding: 30px 05px 30px 15px !important;
+    font-size: 20px;
+    color: #fff !important;
+}
+
+.navbar-collapse {
+    border-color: none !important;
+}
+
+.navbar-brand:hover {
+    color: #fff !important;
+}
+
+.navbar-brand > .icon-banner {
+    position: relative;
+    top: -2px;
+    display: inline;
+}
+
+.menu-button {
+    background: url('../images/CloseMenuIcon.svg') no-repeat;
+    width: 50px;
+    height: 32px;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    box-shadow: inset 3px 0 0 #666;
+}
+
+.navbar-toggle {
+    margin-top: 20px !important;
+}
+.nav > li{
+    position:unset;
+}
+/*------------------------------Content-------------------------------*/
+.body-content {
+    min-height: 450px;
+    background-color: #fff;
+    display: inline-block;
+    padding: 0px 15px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+/*------------------------------Side menu-------------------------------*/
+
+#menu-ul {
+    background-color: #fff;
+    bottom: 0;
+    position: absolute;
+    top: 82px;
+    z-index: 10;
+    padding: 0px !important;
+    width: 14%;
+}
+
+    #menu-ul ul {
+    }
+
+    #menu-ul li {
+        list-style: none;
+    }
+
+    #menu-ul a {
+        color: #262626;
+    }
+
+
+    #menu-ul li a {
+        display: inline-block;
+        padding: 15px 0px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        padding-left: 50px;
+    }
+
+@media(max-width:768px) {
+    #menu-ul {
+        width: 100% !important;
+        position:static !important;
+    }
+
+    .pin {
+        display: none !important;
+    }
+
+    .log-down {
+        position: unset !important;
+        bottom: 0 !important;
+    }
+}
+
+.sidemenubar .navbar-collapse {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+/*#sidemenu li:hover {
+            background-color: #F5F5F5;
+        }*/
+
+.active {
+    box-shadow: inset 3px 0 0 #666;
+}
+
+.users {
+    background: url(../images/UsersIcon_selected.svg) left no-repeat;
+}
+
+.logout {
+    background: url(../images/MenuLockOutIcon.svg) left no-repeat;
+}
+
+.log-down {
+    bottom: 42px;
+    cursor: pointer;
+}
+
+.pin {
+    background: url(../images/PinIcon_pinned.svg) left no-repeat;
+}
+
+.pin-down {
+    position: fixed !important;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+    .pin-down a:hover {
+        box-shadow: none !important;
+    }
+
+.sidemenubar > .col-sm-2 {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    position: inherit;
+}
+
+.col-sm-10 {
+    padding-left: 0px !important;
+}
+
+@media(min-width:768px) {
+    .sidemenubar > .col-sm-2 {
+        width: 15% !important;
+    }
+}
+
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: transparent !important;
+}
+
+/*------------------------------Profile-------------------------------*/
+.myaccount {
+    background: url(../images/MyAccountIcon_black.svg) left no-repeat;
+}
+
+.myaccountform .btnChangePassword {
+    height: 34px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    width: 38px;
+    margin-top: -1px;
+    cursor: pointer;
+    float: right;
+}
+
+.profile-header {
+    margin: 20px 0px;
+}
+
+.myaccountform .notify {
+    height: 20px;
+    width: 20px;
+    margin-right: 15px;
+}
+
+.btnProfile {
+    width: 100px;
+    float: right;
+    display: inline-block;
+    color: #fff;
+    background-color: #666;
+    border-color: #666;
+    border-radius: 0;
+    margin-left: 12px;
+}
+
+.changepassbtn {
+    float: right;
+    color: #fff;
+    background-color: #666;
+    width: 90px;
+    border-color: #666;
+    border-radius: 0;
+    margin-left: 12px;
+}
+
+.btnProfile:hover, .btnProfile:focus {
+    color: #fff;
+}
+
+.changepassbtn:hover, .changepassbtn:focus {
+    color: #fff;
+}
+
+.modal-header {
+    background-color: #666 !important;
+    color: #fff !important;
+}
+
+.modal-dialog {
+    width: 380px !important;
+}
+
+.modal-footer {
+    border: 0px !important;
+}
+
+.optdiv-profile {
+    display: inline-block;
+    float: right;
+}
+
+@media(max-width:426px) {
+    .profile-header {
+        text-align: center;
+    }
+
+    .optdiv-profile {
+        float: none !important;
+    }
+}
+
+.lbl-profile {
+    font-size: 30px;
+}
+
+@media(max-width:768px) {
+    .myaccountform .btnChangePassword {
+        margin-top: 15px !important;
+    }
+
+    .modal-dialog {
+        width: auto !important;
+    }
+}

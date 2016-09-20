@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BitzerIoC :: Authentication</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">BITZER IoC</a>
+            </div>
+            <a><img class="logo" src="~/images/logo.png" alt="Logo" /></a>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <div class="footer">
+        <p>
+            We use cookies to give you the best experience. If you log in, you accept the use of cookies.
+            <a href="#">Read more about Cookies & Privacy Policy.</a>
+        </p>
+    </div>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/js/site.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

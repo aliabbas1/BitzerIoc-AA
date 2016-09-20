@@ -1,0 +1,97 @@
+﻿@model Host.UI.Login.LoginViewModel
+@*@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment environment*@
+
+<div class="login-page">
+    <div class="row">
+        <div class="login-form">
+            @if (ViewBag.FlagMessage != null && ViewBag.FlagMessage == "success")
+            {
+                ViewBag.FlagMessage = "Password updated, please log in with new password!";
+                @Html.Partial("_SuccessMessage")
+            }
+            @if (ViewBag.FlagMessage != null && ViewBag.FlagMessage == "error")
+            {
+                ViewBag.FlagMessage = "Change password link has already been used or has expired. Please request again";
+                @Html.Partial("_ErrorMessage")
+            }
+
+            @Html.Partial("_ValidationSummary")
+
+            <form asp-route="Login">
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <fieldset>
+                    <div>
+                        <label asp-for="Username" class="login-label"></label>
+                        <input class="login_textbox" asp-for="Username" autofocus>
+                    </div>
+                    <div>
+                        <label asp-for="Password" class="login-label"></label>
+                        <input type="password" class="login_textbox" asp-for="Password" autocomplete="off">
+                    </div>
+
+                    <div>
+                        <label asp-for="RememberLogin" class="remember">
+                            <input asp-for="RememberLogin">
+                            <span>Remember me</span>
+                        </label>
+                        <button class="login_btn">Log in</button>
+                    </div>
+
+                    <div>
+                        <a href="#" class="forgot" data-target="#forgotModal" onclick="forgotModal()">Forgot password?</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+
+        @* Forgot Modal Popup *@
+        <div id="forgotModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @* <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                        <div class="modal-title" id="modalTitle"></div>
+                    </div>
+
+                    <div id="forgotModalContainer" class="modal-body">
+                        <span class="email-error hidden"></span>
+                        <div class="mb25 linehight30">
+                            <span>Enter your email</span>
+                            @Html.TextBox("email", null, new { @class = "pull-right", id = "forgotemail" })
+                        </div>
+                        <div>
+                            <span> We’ll send you an email with a link to reset your password. </span>
+                        </div>
+
+                    </div>
+                    @{
+                         //ToDo:Pending Test
+                     } 
+                    <div class="modal-footer">
+                        <input type="submit" onclick="ForgotPassword('@ViewBag.BaseWebApiUrl','@Model.ReturnUrl');" class="forgot_btn mr10 call" id="forgorsend_btn" value="Send" data-scope='caretakerwebapi' data-type='id_token token' />
+                        <input type="submit" name="BtnCancel" class="forgot_btn" id="forgotcancel_btn" data-dismiss="modal" value="Cancel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* /Forgot Modal Popup *@
+
+        <div id="EmailSentModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modalTitle">Email Sent.</div>
+                    </div>
+
+                    <div id="EmailSentModalContainer" class="modal-body">
+                        <span class="">Please check your email.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

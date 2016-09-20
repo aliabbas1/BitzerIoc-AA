@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+    var email = User.Claims.SingleOrDefault(c => c.Type.Equals("email")).Value.ToString();
+}
+<form class="form-horizontal myaccountform" name="myaccountform">
+    <div class="profile-header">
+        <div class="row">
+            <span class="col-sm-4 lbl-profile"> My account</span>
+            <div class="optdiv-profile mr15">
+                <input type="button" class="btnProfile btn" ng-click="reset()" value="Undo" disabled />
+                <input type="button" id="btnSaveProfile" class="btnProfile btn" ng-click="UpdateName()" value="Save" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="row col-sm-12">
+
+
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <span ng-show="successMsgs" class="success-msg">Name is updated.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="hidden" value="@email" id="hiddenEmail" />
+            <label for="UserName" class="col-sm-2">Name</label>
+            <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="txtName" name="txtName" ng-change="namechanged()" ng-model="txtName" required>
+            </div>
+            <div class="col-sm-3">
+                <span ng-show="myaccountform.txtName.$touched && myaccountform.txtName.$error.required" class="error-msg">Name is required.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserEmail" class="col-sm-2">Email</label>
+            <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="txtEmail" ng-model="txtEmail" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserPassword" class="col-sm-2">Password</label>
+            <div class="col-sm-3">
+                <input type="password" class="form-control" id="txtPassword" ng-model="txtPassword" disabled>
+            </div>
+            <div class="col-sm-1 cus-toolbar">
+                <span class="btnChangePassword glyphicon glyphicon-pencil" data-target="#modalChangePassword" onclick="modalChangePassword();"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user_notify" class="col-sm-2">Notifications</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="chkNotify" class="notify" disabled checked>
+                <span class="notifylabel"> Notify me by email when alarms occur </span>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@* Modal Pop up to update password *@
+<div class="row col-sm-12">
+    <div id="modalChangePassword" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modaltitle" id="modalTitle"></div>
+                </div>
+
+                <form class="ChangePasswordForm" name="ChangePasswordForm">
+                    <div id="forgotModalContainer" class="modal-body">
+                        <span class="email-error hidden"></span>
+                        <div>
+                            <p ng-show="ChangePasswordForm.txtCurrentPassword.$touched && WrongPassword" class="error-msg"> Password did not match!</p>
+                            <p ng-show="ChangePasswordForm.txtCurrentPassword.$touched && ChangePasswordForm.txtCurrentPassword.$error.required" class="error-msg">Please enter current password!</p>
+                            <p ng-show="ChangePasswordForm.txtNewPassword.$error.pattern" class="error-msg">Password should be containing at least 8 characters, 1 capital letter and 1 number</p>
+                            <p ng-show="ChangePasswordForm.txtConfirmPassword.$error.pattern" class="error-msg">Repeat password did not match!</p>
+                            <p ng-show="differentPassword" class="error-msg"> Current password and new password should be different!</p>
+                        </div>
+                        <div>
+                            <span>Current password</span>
+                            <input type="password" class="form-control pull-right mb10" id="txtCurrentPassword" ng-blur="ValidatePassword()" name="txtCurrentPassword" ng-model="txtCurrentPassword" required />
+                        </div>
+                        <div>
+                            <span>New password</span>
+                            <input type="password" class="form-control pull-right mb10" id="txtNewPassword" name="txtNewPassword" ng-model="txtNewPassword" disabled required ng-pattern="/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d._^%$#@@!~,-]{8,}$/" />
+                        </div>
+                        <div>
+                            <span>Repeat new password</span>
+                            <input type="password" class="form-control pull-right mb10" id="txtConfirmPassword" ng-model="txtConfirmPassword" name="txtConfirmPassword" ng-pattern="txtNewPassword" disabled required />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" name="BtnCancel" class="btn changepassbtn" id="forgotcancel_btn" data-dismiss="modal" value="Cancel" />
+                        <input type="button" ng-disabled="ChangePasswordForm.$invalid" ng-click="UpdatePassword();" class="btn changepassbtn " id="btnChangePassword" value="Update" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@* /Modal Pop up to update password *@
+
+

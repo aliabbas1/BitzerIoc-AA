@@ -1,0 +1,237 @@
+﻿body {
+    background-color: #E6E6E6;
+}
+
+.mb25 {
+    margin-bottom: 25px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.linehight30 {
+    line-height: 30px;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.navbar-header {
+    position: relative;
+}
+
+.navbar-inverse {
+    background-color: #444444;
+    border-color: #444444;
+}
+
+.navbar-brand {
+    height: 80px !important;
+    padding: 30px 15px !important;
+    font-size: 20px;
+    color: #868686 !important;
+}
+
+    .navbar-brand:hover {
+        color: #868686 !important;
+    }
+
+    .navbar-brand > .icon-banner {
+        position: relative;
+        top: -2px;
+        display: inline;
+    }
+
+.logo {
+    height: 50px;
+    float: right;
+    margin-top: 17px;
+}
+
+@media (max-width: 767px) {
+    .logo {
+        display: none;
+    }
+}
+
+.icon {
+    position: relative;
+    top: -10px;
+}
+
+.page-consent .client-logo {
+    float: left;
+}
+
+    .page-consent .client-logo img {
+        width: 80px;
+        height: 80px;
+    }
+
+.page-consent .consent-buttons {
+    margin-top: 25px;
+}
+
+.page-consent .consent-form .consent-scopecheck {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.page-consent .consent-form .consent-description {
+    margin-left: 25px;
+}
+
+    .page-consent .consent-form .consent-description label {
+        font-weight: normal;
+    }
+
+.page-consent .consent-form .consent-remember {
+    padding-left: 16px;
+}
+
+
+/*---------------------------------------- Login Page--------------------------------------------------*/
+.login-page {
+    margin-top: 130px;
+}
+
+.login-form {
+    margin: 0px auto;
+    width: 280px;
+}
+
+.login-label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.login_textbox {
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 12px;
+}
+
+.login_btn {
+    background-color: #6AA842;
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    float: right;
+}
+
+.forgot {
+    color: #333;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+    .forgot:hover {
+        color: #333;
+    }
+
+.footer {
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    width: 85%;
+    font-size: 11px;
+    padding-top: 5px;
+}
+
+    .footer a {
+        color: #6AA842;
+    }
+
+.remember {
+    margin-bottom: 8px;
+}
+
+.login-error {
+    color: #C0484A;
+    width: 330px;
+    margin-left:-40px;
+}
+
+    .login-error li {
+        list-style: none;
+    }
+
+@media (min-width: 422px) {
+    .modal-dialog {
+        width: 430px !important;
+        margin-top: 150px !important;
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 399px) {
+    .modal-body {
+        text-align: center;
+    }
+
+    #forgotemail {
+        float: none !important;
+        width: 100% !important;
+    }
+}
+
+.modal-dialog {
+    margin-top: 150px !important;
+}
+
+.modal-content {
+    border-radius: 0px !important;
+}
+
+.modal-header {
+    color: #fff;
+    background-color: #6AA842;
+}
+
+.modal-title {
+    font-size: 16px;
+}
+
+.modal-backdrop {
+    background-color: #BFBFBF !important;
+}
+
+.modal-body {
+    padding: 25px !important;
+    font-size: 12px !important;
+    color: #000 !important;
+}
+
+#forgotemail {
+    width: 65%;
+    background-color: #F1F1F1;
+    height: 30px !important;
+    border: 0px !important;
+    padding: 0px 8px;
+}
+
+.forgot_btn {
+    background-color: #6AA842;
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+}
+
+.email-error {
+    display: block;
+    margin-bottom: 25px;
+    color: red;
+}
+
+.modal-footer {
+    border: 0px !important;
+}
+.EmailSentModalContainer{
+    text-align:center;
+}

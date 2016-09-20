@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div>
+    <div class="users-header">
+        <div class="row">
+            <span class="col-sm-2 lbl-gateway">Users</span>
+            <div class="optdiv-user">
+                <a class="btn-user mr15 btn" ng-href="/admin/createuser">New user</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="list-gatways">
+        <div class="row">
+            <span>USER LIST</span>
+            <div class="input-group user-search col-lg-3">
+                <span class="input-group-addon search-icon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+                <input placeholder="Search" class="form-control search-text" type="search" ng-model="filterUser" ng-change="searchUsers()" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+    </div>
+
+    <div style="clear:both"></div>
+    
+    @*Implement Angular Ui-Grid for users list*@
+    @* Author : Ali Abbas version 1.0 *@
+    <div class="uiGridView" ui-grid="userGridOpts"></div>
+    @* End Ui-Grid for user list*@
+
+    <div id="DeleteUserModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle"></div>
+                </div>
+
+                <div id="deleteModalContainer" class="modal-body">
+                    <input type="hidden" id="HiddenId" />
+                    <span>Are you sure you wish to delete this user? </span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" ng-click="DeleteUser();" class="deleteuserbtn" id="forgorsend_btn" value="Yes" />
+                    <input type="submit" name="BtnCancel" class="deleteuserbtn" id="forgotcancel_btn" data-dismiss="modal" value="No" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

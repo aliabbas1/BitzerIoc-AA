@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div>
+    <div class="gatways-header">
+        <div class="row">
+            <span class="col-sm-2 lbl-gateway">Gateways</span>
+            <div class="optdiv-gateway">
+                <a class="btn-gateway mr15 btn" ng-href="/admin/creategateway">New Gateway</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="list-gatways">
+        <div class="row">
+            <span>GATEWAY LIST</span>
+
+            <div class="input-group user-search col-lg-3">
+                <span class="input-group-addon search-icon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+                <input placeholder="Search" class="form-control search-text" type="search" ng-model="filterText" ng-change="searchGateways()" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    @*Implement Angular Ui-Grid for gatway list*@
+    @* Author : Ali Abbas version 1.0 *@
+    <div class="uiGridView" ui-grid="gatewayGridOpts"></div>
+    @* End Ui-Grid for gatway list*@
+
+
+    @*Implement bootstrap Popup modal to delete a gateway*@
+    @* Author : Ali Abbas version 1.0 *@
+    <form name="deletegatewayform">
+        <div id="DeleteGatewayModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modalTitle"></div>
+                    </div>
+                    <div id="deleteModalContainer" class="modal-body">
+                        <input type="hidden" id="hdnGatewayId" name="hdnGatewayId" ng-bind="hdnGatewayId" />
+                        <span>
+                            Deleted gateway (<span id="hdnGatewayName" name="hdnGatewayName" ng-bind="hdnGatewayName"></span>) will be
+                            deleted permantly and will therefore no longer be available.
+                        </span>
+                        <p ng-show="DeviceExist" class="error-msg mt10">Please remove all devices from this gateway before deleting it.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" ng-click="DeleteGateway();" class="deleteuserbtn" id="forgorsend_btn" value="Yes" />
+                        <input type="submit" name="BtnCancel" class="deleteuserbtn" id="forgotcancel_btn" data-dismiss="modal" value="No" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @* End bootstrap Popup modal *@
+</div>

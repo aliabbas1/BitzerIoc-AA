@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+    var email = User.Claims.SingleOrDefault(c => c.Type.Equals("email")).Value.ToString();
+    @model BitzerIoC.Domain.ViewModels.GatewayViewModel
+}
+<form name="upadtegatewayform" class="gatewaysetupform">
+    <div class="gatways-header">
+        <div class="row col-sm-12">
+            <span class="lbl-gateway">Update gateway</span>
+            <div class="optdiv-gateway">
+                <a class="btn-gateway btn" ng-href="/admin/gateways">Cancel</a>
+                <button id="btnUpdateGateway" name="btnUpdateGateway" class="btn-gateway btn" ng-disabled="upadtegatewayform.$invalid" ng-click="UpdateGateway()">Save</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal col-sm-12 user-setup">
+            <input type="hidden" id="hdnGatewayId" name="hiddenGatewayId" ng-bind="hiddenGatewayId" />
+            <input type="hidden" id="hdnUpdatedBy" value="@email" />
+            <div class="form-group">
+                <div class="col-sm-2"><label>Gateway name</label></div>
+                <div class="col-sm-4">
+                    <input type="text" name="txtGatewayName" class="form-control" ng-model="txtGatewayName" required id="txtGatewayName" />
+                </div>
+                <div class="col-sm-4">
+                    <span ng-show="upadtegatewayform.txtGatewayName.$touched && upadtegatewayform.txtGatewayName.$error.required" class="error-msg">Please enter the Gateway name!</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label>Gateway Id</label></div>
+                <div class="col-sm-4">
+                    <input type="text" name="txtGatewayMac" class="form-control" ng-model="txtGatewayMac" required disabled />
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label>Enabled</label></div>
+                <div class="col-sm-1">
+                    <input type="checkbox" class="disabled" ng-model="chkIsEnable" name="chkIsEnable" id="chkIsEnable" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
