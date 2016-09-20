@@ -1,3 +1,26 @@
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.WebAPI\BitzerIoC.WebAPI.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.WebAPI\BitzerIoC.WebAPI.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.xUnitTest\BitzerIoC.xUnitTest.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.xUnitTest\BitzerIoC.xUnitTest.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.xUnitTest\BitzerIoC.xUnitTest.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.WebAPI\BitzerIoC.WebAPI.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.xUnitTest\BitzerIoC.xUnitTest.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\IdentityServer\IdentityServer.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.WebAPI\BitzerIoC.WebAPI.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\IdentityServer\IdentityServer.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.IntegrationTest\BitzerIoC.IntegrationTest.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\BitzerIoC.IntegrationTest\BitzerIoC.IntegrationTest.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
 #:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Admin\BitzerIoC.Admin.xproj
 D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Admin\BitzerIoC.Admin.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
 D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\IdentityServer\IdentityServer.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\IdentityServer\IdentityServer.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC\BitzerIoC.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC\BitzerIoC.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj
+D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Infrastructure\BitzerIoC.Infrastructure.xproj|D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Domain\BitzerIoC.Domain.xproj
+#:D:\Bitzer Ioc\Project\V23\BitzerIocSol\src\BitzerIoC.Services\BitzerIoC.Services.xproj
