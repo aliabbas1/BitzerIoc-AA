@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using BitzerIoC.Infrastructure.Filters;
+using BitzerIoC.Domain.DTO;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BitzerIoC.WebAPI.Controllers
@@ -67,7 +68,7 @@ namespace BitzerIoC.WebAPI.Controllers
         {
             _identityRepository = identityRepository;
             _environment = environment;
-			 _logger = logger;
+            _logger = logger;
         }
 
 
@@ -81,10 +82,10 @@ namespace BitzerIoC.WebAPI.Controllers
         [HttpGet("{userId}")]
         public async Task<AspNetUser> GetUser(string userId)
         {
-            AspNetUser user = await Task.Run(()=> _identityRepository.GetUserById(userId));
+            AspNetUser user = await Task.Run(() => _identityRepository.GetUserById(userId));
             return user;
         }
-        
+
         /// <summary>
         /// Get the user boundaries, return list of user boundaries
         /// </summary>
@@ -95,8 +96,21 @@ namespace BitzerIoC.WebAPI.Controllers
         [Route("GetUserBoundaries/{userId}")]
         public async Task<List<UserBoundary>> GetUserBoundaries(string userId)
         {
-            List<UserBoundary> userBoundaries = await Task.Run(() => _identityRepository.GetUserBoundaries(null,userId:userId));
+            List<UserBoundary> userBoundaries = await Task.Run(() => _identityRepository.GetUserBoundaries(null, userId: userId));
             return userBoundaries;
+        }
+
+        /// <summary>
+        /// Get the user with boundary
+        /// </summary>
+        /// <param name="userId">UserId</param>
+        /// <returns></returns>
+        /// <uri>api/UserOperations/{userId-parameter}</uri>
+        [HttpGet("{userId}/{boundaryId}")]
+        public async Task<AspNetUser> GetUserProfileById(string userId, int boundaryId)
+        {
+            UserDetailDTO user = await Task.Run(() => _identityRepository.GetUserProfileById(userId, boundaryId));
+            return user;
         }
         #endregion
 
@@ -112,7 +126,7 @@ namespace BitzerIoC.WebAPI.Controllers
         [HttpDelete("{userId}")]
         public async Task<bool> DeleteUser(string userId)
         {
-            bool status = await Task.Run(() =>_identityRepository.DeleteUser(userId));
+            bool status = await Task.Run(() => _identityRepository.DeleteUser(userId));
             return status;
         }
 
@@ -124,36 +138,32 @@ namespace BitzerIoC.WebAPI.Controllers
         /// <returns>bool</returns>
         /// <uri>api/UserOperations/{userId-parameter}/{boundaryId:int-parameter}</uri>
         [HttpDelete("{userId}/{boundaryId:int}")]
-        public async Task<bool> DeleteUserBoundary(string userId,int boundaryId)
+        public async Task<bool> DeleteUserBoundary(string userId, int boundaryId)
         {
-            bool status = await Task.Run(()=>_identityRepository.DeleteUserBoundary(userId,boundaryId));
+            bool status = await Task.Run(() => _identityRepository.DeleteUserBoundary(userId, boundaryId));
             return status;
         }
         #endregion
 
-        #region Add,Update User 
-         /// <summary>
-        /// ToDo: Test pending
-        /// Create/Update User, If user id is not null than user updated else user created and send email
-        /// for account activation
+        #region Create User 
+        /// <summary>
+        /// Create User, If user successfully created then send email for account activation
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="userEmail"></param>
         /// <param name="name"></param>
         /// <param name="userPhone"></param>
         /// <param name="roleId"></param>
-        /// <param name="oldRoleId"></param>
         /// <param name="isEnable"></param>
+        /// <param name="BoundaryId"></param>
         /// <returns>bool value</returns>
         /// Author : khurram shehzad,Ali abbas
-        /// Version 2.0
+        /// Version 3.0
         [HttpPost]
-        [Route("{userId}/{userEmail}/{name}/{userPhone}/{roleId}/{oldRoleId}/{isEnable}")]
-        public bool SaveUser(string userId, string userEmail, string name, string userPhone, string roleId, string oldRoleId, bool isEnable)
+        [Route("{userEmail}/{name}/{userPhone}/{roleId}/{isEnable}/{boundaryId}")]
+        public bool SaveUser(string userEmail, string name, string userPhone, string roleId, bool isEnable, int BoundaryId)
         {
             #region variables
             bool isEmailSent = false;
-            bool isUserUpdated = false;
             EmailHelper helper;
             bool IsComplete = false;
             string htmlmessage = null;
@@ -164,47 +174,67 @@ namespace BitzerIoC.WebAPI.Controllers
             string UserName = null;
             #endregion
 
-            // Case 1: Exsisting User 
-            if (!string.IsNullOrEmpty(userId) && !userId.Contains("null"))
+            bool isUserCreated = _identityRepository.CreateUser(userEmail, name, userPhone, roleId, BoundaryId, isEnable);
+            string redirectUri = GenericHelper.EncodeUrl(GetRedirectUrl(roleId));
+            if (isUserCreated)
             {
-                isUserUpdated = _identityRepository.UpdateUser(userId, userPhone, oldRoleId, roleId, name, BoundaryConstants.BoundaryId, isEnable);
-                return isUserUpdated;
-            }
+                #region Send Email to User to activate account 
+                UserName = _identityRepository.GetUserNameByEmail(userEmail.Trim());
+                callbackUrl = string.Format("{0}/ui/ResetPassword?TokenKey={1}&redirectUri={2}", baseUrlIdentityServer, Token, redirectUri);
 
-            // Case 2: New User
-            else
-            {
-                bool isUserCreated = _identityRepository.CreateUser(userEmail, name, userPhone, roleId, BoundaryConstants.BoundaryId, isEnable);
-                string redirectUri =  GenericHelper.EncodeUrl(GetRedirectUrl(roleId)); 
-                if (isUserCreated)
+                if (_identityRepository.SaveToken(userEmail.Trim(), Token, ExpiryDate, IsComplete))
                 {
-                    #region Send Email to User to activate account 
-                    UserName = _identityRepository.GetUserNameByEmail(userEmail.Trim());
-                    callbackUrl = string.Format("{0}/ui/ResetPassword?TokenKey={1}&redirectUri={2}", baseUrlIdentityServer,Token, redirectUri);
-
-                    if (_identityRepository.SaveToken(userEmail.Trim(), Token, ExpiryDate, IsComplete))
-                    {
-                        htmlmessage = String.Format("<b>Hi {0}.</b><br/><br/>You have been invited to the BitzerIoc system." +
-                                      "<br/><br/>User name = {0} <br/><br/>" +
-                                      "To activate your account and create a password please <a href='{1}' > click here. </a>" +
-                                      "<br/><br/>You can access the Remote Caretaking system <a href='{2}'> here. </a> <br/><br/>Best regards",
-                                      UserName, callbackUrl, loginUrl);
+                    htmlmessage = String.Format("<b>Hi {0}.</b><br/><br/>You have been invited to the BitzerIoc system." +
+                                  "<br/><br/>User name = {0} <br/><br/>" +
+                                  "To activate your account and create a password please <a href='{1}' > click here. </a>" +
+                                  "<br/><br/>Best regards.",
+                                  UserName, callbackUrl, loginUrl);
 
 
-                        helper = new EmailHelper(userEmail.Trim(), EmailConstants.From, "Setup password request", "", htmlmessage, null);
+                    helper = new EmailHelper(userEmail.Trim(), EmailConstants.From, "Setup password request", "", htmlmessage, null);
 
-                        isEmailSent = helper.SendEmailAsync().Result;
+                    isEmailSent = helper.SendEmailAsync().Result;
 
 
-                    }
-                    #endregion
                 }
-                return isEmailSent;
+                #endregion
             }
-
+            return isEmailSent;
         }
         #endregion
 
+        #region Update User 
+        /// <summary>
+        /// Update User, name,phone number,role and status(enable,disable)
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userEmail"></param>
+        /// <param name="name"></param>
+        /// <param name="userPhone"></param>
+        /// <param name="roleId"></param>
+        /// <param name="oldRoleId"></param>
+        /// <param name="isEnable"></param>
+        /// <param name="BoundaryId"></param>
+        /// <returns>bool value</returns>
+        /// Author :Ali abbas
+        /// Version 1.0
+        [HttpPost]
+        [Route("{userId}/{userEmail}/{name}/{userPhone}/{roleId}/{oldRoleId}/{isEnable}/{BoundaryId}")]
+        public bool UpdateUser(string userId, string userEmail, string name, string userPhone, string roleId, string oldRoleId, bool isEnable, int BoundaryId)
+        {
+            #region variables
+            bool isUserUpdated = false;
+            #endregion
+
+            if (!string.IsNullOrEmpty(userId) && !userId.Contains("null"))
+            {
+                isUserUpdated = _identityRepository.UpdateUser(userId, userPhone, oldRoleId, roleId, name, BoundaryId, isEnable);
+                return isUserUpdated;
+            }
+            return isUserUpdated;
+        }
+
+        #endregion
 
         #region Helper Method
         /// <summary>

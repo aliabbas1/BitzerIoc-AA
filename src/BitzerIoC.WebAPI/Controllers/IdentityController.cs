@@ -136,11 +136,8 @@ namespace BitzerIoC.WebAPI.Controllers
          
         }
 
- 
-
         #region User Profile
 
-  
         /// <summary>
         /// ToDo: Update it to POST (Pirority :: High)
         /// </summary>

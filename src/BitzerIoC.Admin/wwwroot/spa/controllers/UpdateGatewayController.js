@@ -6,8 +6,8 @@
 
     /*------------  Functions ------------------*/
     /* Function get the Gateway on the basis of gatewayId*/
-    /*Author = Ali Abbas, version 1.0*/
-    /*To Do: remove hardcoded boundaryid=1 */
+    /* version 1.0*/
+    /*ToDo: remove hardcoded boundaryid=1 */
 
     function GetGateway(gatewayId) {
         var params = gatewayId + "/" + 1;
@@ -23,8 +23,8 @@
 
     /*------------  Functions ------------------*/
     /* Function UpdateGateway the Gateway on the basis of gatewayId*/
-    /*Author = Ali Abbas, version 1.0*/
-    /*To Do: remove hardcoded boundaryid=1 */
+    /* version 1.0*/
+    /*ToDo: remove hardcoded boundaryid=1 */
     $scope.UpdateGateway = function () {
         var GatewayId = $('#hdnGatewayId').text();
         var UpdatedBy = $('#hdnUpdatedBy').val();

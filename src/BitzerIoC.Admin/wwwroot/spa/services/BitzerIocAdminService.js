@@ -21,7 +21,11 @@
     this.GetProfileByEmail = function (Email) {
 
         return $http.get(baseApiUrl+'/identity/GetUserProfileByUsername?email=' + Email + '&boundaryId=1');
+    };
 
+    this.GetUserProfileById = function (Params) {
+
+        return $http.get(baseApiUrl + '/UserOperations/' + Params);
     };
 
     this.GetRoles = function () {
@@ -32,9 +36,12 @@
         return $http.get(baseApiUrl + '/identity/AlreadyExistEmail?UserEmail=' + UserEmail + '&boundaryId=1')
     };
 
-    //ToDo: Rename to SaveUser
-    this.SetupUser = function (Params)
+    this.SaveUser = function (Params)
     {
+        return $http.post(baseApiUrl + '/UserOperations/' + Params);
+    }
+
+    this.UpdateUser = function (Params) {
         return $http.post(baseApiUrl + '/UserOperations/' + Params);
     }
 
@@ -70,7 +77,7 @@
     this.ValidateGateway = function (GatewayMac) {
         return $http.get(baseApiUrl + '/Gateway/' + GatewayMac);
     }
-    this.SetupGateway = function (params) {
+    this.SaveGateway = function (params) {
         return $http.post(baseApiUrl + '/Gateway/' + params);
     }
 

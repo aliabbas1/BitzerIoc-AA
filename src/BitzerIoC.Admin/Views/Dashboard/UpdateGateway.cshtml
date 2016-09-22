@@ -4,7 +4,7 @@
     var email = User.Claims.SingleOrDefault(c => c.Type.Equals("email")).Value.ToString();
     @model BitzerIoC.Domain.ViewModels.GatewayViewModel
 }
-<form name="upadtegatewayform" class="gatewaysetupform">
+<form name="upadtegatewayform" class="gatewayform">
     <div class="gatways-header">
         <div class="row col-sm-12">
             <span class="lbl-gateway">Update gateway</span>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-horizontal col-sm-12 user-setup">
+        <div class="form-horizontal col-sm-12 gateway-wrapper">
             <input type="hidden" id="hdnGatewayId" name="hiddenGatewayId" ng-bind="hiddenGatewayId" />
             <input type="hidden" id="hdnUpdatedBy" value="@email" />
             <div class="form-group">

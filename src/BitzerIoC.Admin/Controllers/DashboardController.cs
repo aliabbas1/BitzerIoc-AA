@@ -80,6 +80,14 @@ namespace BitzerIoC.Admin.Controllers
         [HttpGet]
         [Authorize]
         [AdminAccessFilter]
+        public IActionResult UpdateUser()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        [AdminAccessFilter]
         public ActionResult Users()
         {
             return View();

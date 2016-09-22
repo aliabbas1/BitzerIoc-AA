@@ -3,19 +3,19 @@
     var email = User.Claims.SingleOrDefault(c => c.Type.Equals("email")).Value.ToString();
 }
 <div>
-    <form name="gatewaysetupform" class="gatewaysetupform">
+    <form name="gatewaysetupform" class="gatewayform">
         <div class="gatways-header">
             <div class="row col-sm-12">
                 <span class="lbl-gateway">Setup gateway</span>
                 <div class="optdiv-gateway">
                     <a class="btn-gateway btn" ng-href="/admin/gateways">Cancel</a>
-                    <button id="btnCreateGateway" name="btnCreateGateway" class="btn-gateway btn" ng-disabled="gatewaysetupform.$invalid" ng-click="AddUpdateGateway()">Save</button>
+                    <button id="btnCreateGateway" name="btnCreateGateway" class="btn-gateway btn" ng-disabled="gatewaysetupform.$invalid" ng-click="SaveGateway()">Save</button>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="form-horizontal col-sm-12 user-setup">
+            <div class="form-horizontal col-sm-12 gateway-wrapper">
 
                 <input type="hidden" value="@email" name="hiddenEmail" id="hiddenEmail" />
                 <div class="form-group">

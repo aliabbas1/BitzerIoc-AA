@@ -18,5 +18,6 @@
 /// <reference path="spa/controllers/nevigationcontroller.js" />
 /// <reference path="spa/controllers/profileController.js" />
 /// <reference path="spa/controllers/updategatewaycontroller.js" />
+/// <reference path="spa/controllers/updateUserController.js" />
 /// <reference path="spa/controllers/usersController.js" />
 /// <reference path="spa/services/BitzerIocAdminService.js" />

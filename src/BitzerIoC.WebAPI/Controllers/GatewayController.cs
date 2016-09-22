@@ -86,7 +86,7 @@ namespace BitzerIoC.WebAPI.Controllers
         /// Update gateway, gatewayId and boundaryId is required for updation
         /// <param name="gatewayId">GatewayId</param>
         /// <param name="gatewayName">GatewayName</param>
-      /// <param name="isEnable">IsEnable</param>
+        /// <param name="isEnable">IsEnable</param>
         /// <param name="updatedBy">UpdatedBy</param>
         /// <returns>true if gateway updated.</returns>
         /// <uri>api/Gateway/{gatewayId - int parameter}/{gatewayName - string parameter}/{isEnable - bool parameter}/{updatedBy - string parameter}</uri>
@@ -96,12 +96,10 @@ namespace BitzerIoC.WebAPI.Controllers
         [HttpPost]
         [Route("{gatewayId}/{gatewayName}/{isEnable}/{updatedBy}")]
         public async Task<bool> UpdateGateway(int gatewayId, string gatewayName, bool isEnable, string updatedBy)
-        //public async Task<bool> UpdateGateway([FromBody]GatewayViewModel oGatewayViewModel)
         {
             if (gatewayName != "" || gatewayName != null)
             {
                 return await Task.Run(() => _gatewayRepository.UpdateGateway(gatewayId, gatewayName, isEnable, updatedBy));
-                //return await Task.Run(() => _gatewayRepository.UpdateGateway(oGatewayViewModel.GatewayId, oGatewayViewModel.GatewayName, oGatewayViewModel.Status, oGatewayViewModel.UpdatedBy));
             }
             else
                 return false;
@@ -137,7 +135,7 @@ namespace BitzerIoC.WebAPI.Controllers
 
 
 
-    /// <summary>
+        /// <summary>
         /// Delete gateway, gatewayId is required 
         /// <param name="gatewayId">GatewayId</param>
         /// <returns>retun true if no device found in particular gateway and delete gateway successfully.</returns>

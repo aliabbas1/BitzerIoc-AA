@@ -31,7 +31,7 @@ body {
     opacity: 0.65;
 }
 
-.usersetupform .btn[disabled] {
+.userform .btn[disabled] {
     cursor: default !important;
 }
 
@@ -48,6 +48,7 @@ body {
 .mr15 {
     margin-right: 15px;
 }
+
 .mt10 {
     margin-top: 10px;
 }
@@ -112,8 +113,9 @@ body {
 .navbar-toggle {
     margin-top: 20px !important;
 }
-.nav > li{
-    position:unset;
+
+.nav > li {
+    position: unset;
 }
 /*------------------------------Side menu-------------------------------*/
 
@@ -151,7 +153,7 @@ body {
 @media(max-width:768px) {
     #menu-ul {
         width: 100% !important;
-        position:static !important;
+        position: static !important;
     }
 
     .pin {
@@ -244,6 +246,8 @@ body {
 
 .ui-grid {
     border: none !important;
+    height: auto !important;
+    margin-bottom: 10px;
 }
 
 .ui-grid-header {
@@ -253,6 +257,10 @@ body {
 .ui-grid-header-cell {
     padding-left: 20px !important;
 }
+
+.ui-grid-viewport {
+    height: auto !important;
+}
 /*------------------------------Users-------------------------------*/
 .user-title {
     margin: 8px 0px 40px 0px;
@@ -261,6 +269,16 @@ body {
 .users-header {
     margin: 20px 0px;
 }
+
+.user-list {
+    height: 35px;
+    line-height: 35px;
+}
+
+    .user-list .row {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
 
 .input-group-addon {
     padding: 6px 12px;
@@ -346,15 +364,15 @@ body {
 }
 /*------------------------------Create User-------------------------------*/
 
-.user-setup {
+.user-wrapper {
     margin-top: 30px;
 }
 
-    .user-setup label {
+    .user-wrapper label {
         font-weight: 700;
     }
 
-    .user-setup input[type="checkbox"] {
+    .user-wrapper input[type="checkbox"] {
         cursor: pointer;
         width: 22px;
         height: 20px;
@@ -399,6 +417,7 @@ body {
         margin-left: 0px !important;
     }
 
+
 @media(max-width:482px) {
     .gatways-header {
         text-align: center;
@@ -431,6 +450,19 @@ body {
         border-color: #474747;
     }
 
+.gateway-wrapper {
+    margin-top: 30px;
+}
+
+    .gateway-wrapper label {
+        font-weight: 700;
+    }
+
+    .gateway-wrapper input[type="checkbox"] {
+        cursor: pointer;
+        width: 22px;
+        height: 20px;
+    }
 /*------------------------------Profile-------------------------------*/
 .myaccount {
     background: url(../images/MyAccountIcon_black.svg) left no-repeat;
@@ -522,6 +554,7 @@ body {
     .myaccountform .btnChangePassword {
         margin-top: 15px !important;
     }
+
     .modal-dialog {
         width: auto !important;
     }
@@ -539,4 +572,3 @@ body {
     margin-left: 12px;
     padding: 5px;
 }
-

@@ -15,7 +15,7 @@
 
     <div class="clear"></div>
 
-    <div class="list-gatways">
+    <div class="user-list">
         <div class="row">
             <span>USER LIST</span>
             <div class="input-group user-search col-lg-3">
@@ -42,14 +42,14 @@
                 </div>
 
                 <div id="deleteModalContainer" class="modal-body">
-                    <input type="hidden" id="HiddenId" />
+                    <input type="hidden" id="txtHdnUserId" />
                     <span>Are you sure you wish to delete this user? </span>
 
                 </div>
 
                 <div class="modal-footer">
-                    <input type="submit" ng-click="DeleteUser();" class="deleteuserbtn" id="forgorsend_btn" value="Yes" />
-                    <input type="submit" name="BtnCancel" class="deleteuserbtn" id="forgotcancel_btn" data-dismiss="modal" value="No" />
+                    <input type="submit" ng-click="DeleteUser();" class="deleteuserbtn" id="btnDelete" value="Yes" />
+                    <input type="submit" name="BtnCancel" class="deleteuserbtn" id="btnCancel" data-dismiss="modal" value="No" />
                 </div>
             </div>
         </div>

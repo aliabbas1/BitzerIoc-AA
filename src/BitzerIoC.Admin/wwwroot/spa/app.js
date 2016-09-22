@@ -83,13 +83,28 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
              title: 'BitzerIoC ::Update Gateway'
          });
 
-   $routeProvider.when('/admin/createuser',
-            {
-                templateUrl: '/Dashboard/CreateUser',
-                controller: 'createUserController',
-                //title is custom property set here and get in main page
-                title: 'BitzerIoC :: Create User'
-            });
+    $routeProvider.when('/admin/createuser',
+             {
+                 templateUrl: '/Dashboard/CreateUser',
+                 controller: 'createUserController',
+                 //title is custom property set here and get in main page
+                 title: 'BitzerIoC :: Create User'
+             });
+
+    $routeProvider.when('/admin/updateuser/:userId?',
+             {
+                 templateUrl: function (urlattr) {
+                     var param = "";
+                     if (urlattr.userId != null) {
+                         param = "userId=" + urlattr.userId;
+                     }
+                     return '/Dashboard/UpdateUser?' + param;
+                 },
+                 controller: 'updateUserController',
+                 //title is custom property set here and get in main page
+                 title: 'BitzerIoC ::Update User'
+             });
+
     $routeProvider.when('/admin/profile',
             {
                 templateUrl: '/Dashboard/Profile',
@@ -98,7 +113,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
                 title: 'BitzerIoC :: User Setting'
             });
 
-      
+
     $routeProvider.otherwise(
                         {
                             redirectTo: '/admin/users'

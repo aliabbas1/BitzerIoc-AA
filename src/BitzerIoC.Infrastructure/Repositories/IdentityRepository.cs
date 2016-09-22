@@ -16,7 +16,7 @@ namespace BitzerIoC.Infrastructure.Repositories
 {
     //Include,IncludeThen => http://stackoverflow.com/questions/36601227/include-collection-in-entity-framework-core
 
-    public class IdentityRepository :IIdentityRepository
+    public class IdentityRepository : IIdentityRepository
     {
         /// <summary>
         /// Debug Filtering
@@ -37,8 +37,8 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <returns>Collection</returns>
         public IEnumerable<AspNetUser> GetUsers()
         {
-           var users = _db.AspNetUsers.ToList();
-           return users;
+            var users = _db.AspNetUsers.ToList();
+            return users;
         }
 
         /// <summary>
@@ -94,19 +94,19 @@ namespace BitzerIoC.Infrastructure.Repositories
                 var username = _db.AspNetUsers.Where(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)).Select(u => u.Name).FirstOrDefault();
                 return username;
             }
-            return null; 
+            return null;
         }
 
 
-       /// <summary>
-       /// Save the token granted to user with Token Key and Expiry Date
-       /// </summary>
-       /// <param name="userName">Username</param>
-       /// <param name="tokenKey">Token key</param>
-       /// <param name="expiryDate">Expiry Date of Token</param>
-       /// <param name="isCompleted">Optional = false</param>
-       /// <returns>If successfully saved return true</returns>
-        public bool SaveToken(string userName,string tokenKey,DateTime expiryDate,bool isCompleted=false)
+        /// <summary>
+        /// Save the token granted to user with Token Key and Expiry Date
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="tokenKey">Token key</param>
+        /// <param name="expiryDate">Expiry Date of Token</param>
+        /// <param name="isCompleted">Optional = false</param>
+        /// <returns>If successfully saved return true</returns>
+        public bool SaveToken(string userName, string tokenKey, DateTime expiryDate, bool isCompleted = false)
         {
             if (!string.IsNullOrEmpty(tokenKey))
             {
@@ -142,12 +142,12 @@ namespace BitzerIoC.Infrastructure.Repositories
                                 .FirstOrDefault(u => u.TokenKey.Equals(token) && u.IsEnable == true &&
                                 (u.IsComplete == null || u.IsComplete == false) && u.ExpiryDate >= DateTime.Now);
                 if (user != null)
-                    return true;               
+                    return true;
             }
             return false;
         }
 
-          
+
         /// <summary>
         /// ToDo: Pending Testing
         ///  Save the hashed password of user along with secureHashSalt,
@@ -160,7 +160,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="securehasSalt">Secure Hash Salt</param>
         /// <param name="isEnabled">Optional [default:true]</param>
         /// <returns></returns>
-        public bool SavePassword(string tokenKey, string hashedPassword,string secureHashSalt, bool isEnabled = true)
+        public bool SavePassword(string tokenKey, string hashedPassword, string secureHashSalt, bool isEnabled = true)
         {
             if (!string.IsNullOrEmpty(tokenKey))
             {
@@ -197,10 +197,10 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <returns></returns>
         public AspNetUser GetValidUser(string userName)
         {
-           return _db.AspNetUsers.FirstOrDefault((u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase))); 
+            return _db.AspNetUsers.FirstOrDefault((u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)));
         }
 
-    
+
 
         /// <summary>
         /// This function returns DTo object which contains some information of user,
@@ -211,11 +211,12 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <returns>IEnumerable of UserDetailDTO</returns>
         public IEnumerable<UserDetailDTO> GetUsersWithRoles(int boundaryId)
         {
-  
+
             try
             {
-              var users = (from user in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
+                var users = (from user in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
                              where user.AspNetUserRoles.Any(ub => ub.UserBoundary.BoundaryId == boundaryId)
+                             orderby user.Name
                              select new UserDetailDTO
                              {
                                  UserId = user.UserId,
@@ -237,16 +238,17 @@ namespace BitzerIoC.Infrastructure.Repositories
             }
         }
 
-        
+
         /// <summary>
         /// Get the roles in AspNetRole Table (DTO)
         /// </summary>
         /// <returns>Collection of AspNetRolesDTO</returns>
         public IEnumerable<AspNetRolesDTO> GetRolesDTO()
         {
-            var roles = from role in _db.AspNetRoles orderby role.RoleId descending
+            var roles = from role in _db.AspNetRoles
+                        orderby role.RoleId descending
                         select new AspNetRolesDTO
-                        { RoleId = role.RoleId, RoleName = role.Name};
+                        { RoleId = role.RoleId, RoleName = role.Name };
             return roles.ToList();
         }
 
@@ -268,12 +270,12 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// </summary>
         /// <param name="username"></param>
         /// <returns>Collection of boundaries of a user else return null</returns>
-        public List<UserBoundary> GetUserBoundaries(string userName,string userId=null)
+        public List<UserBoundary> GetUserBoundaries(string userName, string userId = null)
         {
-            List<UserBoundary> userBoundaries=null;
+            List<UserBoundary> userBoundaries = null;
             AspNetUser user = null;
 
-            if(userId!=null)
+            if (userId != null)
                 user = GetUserById(userId);
             else
                 user = GetUserByUsername(userName);
@@ -282,12 +284,12 @@ namespace BitzerIoC.Infrastructure.Repositories
             {
                 userBoundaries = (from ub in _db.UserBoundaries
                                   where ub.UserId.Equals(user.UserId)
-                                  select ub).ToList();                     
+                                  select ub).ToList();
             }
             return userBoundaries;
         }
 
- 
+
 
         /// <summary>
         /// Get the User object by username,
@@ -312,34 +314,60 @@ namespace BitzerIoC.Infrastructure.Repositories
         }
 
         /// <summary>
-        /// ToDo:Pending Test 
         /// Take username and boundaryId as parameter and return UserDetailDTO object,
         /// Throw exception if more then one record found.
         /// </summary>
         ///<param name="userName">username</param>
         /// <param name="boundaryId">boundary id</param>
         /// <returns></returns>
-        public UserDetailDTO GetUserProfileByUsername(string userName,int boundaryId)
+        public UserDetailDTO GetUserProfileByUsername(string userName, int boundaryId)
         {
-            UserDetailDTO userDetail = (from  user in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
+            UserDetailDTO userDetail = (from user in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
                                         where user.AspNetUserRoles.Any(b => b.UserBoundary.BoundaryId == boundaryId)
                                               && user.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)
                                         select new UserDetailDTO
                                         {
-                                             UserId = user.UserId,
-                                             Name = user.Name,
-                                             UserName = user.UserName,
-                                             Email = user.Email,
-                                             PhoneNumber = user.PhoneNumber,
-                                             IsEnable = user.IsEnable,
-                                             Password = user.Password,
-                                             //Dynamic                             
-                                             Roles = user.AspNetUserRoles.Select(u => u.Role.Name).ToList(),
-                                             RoleId = user.AspNetUserRoles.Select(u => u.Role.RoleId).ToList()
+                                            UserId = user.UserId,
+                                            Name = user.Name,
+                                            UserName = user.UserName,
+                                            Email = user.Email,
+                                            PhoneNumber = user.PhoneNumber,
+                                            IsEnable = user.IsEnable,
+                                            Password = user.Password,
+                                            //Dynamic                             
+                                            Roles = user.AspNetUserRoles.Select(u => u.Role.Name).ToList(),
+                                            RoleId = user.AspNetUserRoles.Select(u => u.Role.RoleId).ToList()
                                         }).SingleOrDefault();
             return userDetail;
         }
 
+        /// <summary>
+        /// Take Id and boundaryId as parameter and return UserDetailDTO object,
+        /// Throw exception if more then one record found.
+        /// </summary>
+        ///<param name="Id">Id</param>
+        /// <param name="boundaryId">boundary id</param>
+        /// <returns></returns>
+        public UserDetailDTO GetUserProfileById(string userId, int boundaryId)
+        {
+            UserDetailDTO userDetail = (from user in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
+                                        where user.AspNetUserRoles.Any(b => b.UserBoundary.BoundaryId == boundaryId)
+                                              && user.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
+                                        select new UserDetailDTO
+                                        {
+                                            UserId = user.UserId,
+                                            Name = user.Name,
+                                            UserName = user.UserName,
+                                            Email = user.Email,
+                                            PhoneNumber = user.PhoneNumber,
+                                            IsEnable = user.IsEnable,
+                                            Password = user.Password,
+                                            //Dynamic                             
+                                            Roles = user.AspNetUserRoles.Select(u => u.Role.Name).ToList(),
+                                            RoleId = user.AspNetUserRoles.Select(u => u.Role.RoleId).ToList()
+                                        }).SingleOrDefault();
+            return userDetail;
+        }
 
         /// <summary>
         /// ToDo: Test Pending
@@ -352,7 +380,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         {
 
             var user = GetUserByUsername(username);
-            if (user == null)
+            if (user == null || user.HashSalt == null)
             {
                 return false;
             }
@@ -382,19 +410,19 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="boundaryId">Boundary Id</param>
         /// <param name="isEnable"></param>
         /// <returns>bool</returns>
-        public bool CreateUser(string userName, string name, string phoneNumber,string roleId,int boundaryId, bool isEnable)
+        public bool CreateUser(string userName, string name, string phoneNumber, string roleId, int boundaryId, bool isEnable)
         {
             UserBoundary ub = new UserBoundary();
-            Boundary boundary = GetBoundaries().SingleOrDefault(b=>b.BoundaryId==boundaryId);
+            Boundary boundary = GetBoundaries().SingleOrDefault(b => b.BoundaryId == boundaryId);
             AspNetRole role = GetRoles().SingleOrDefault(r => r.RoleId.Equals(roleId, StringComparison.OrdinalIgnoreCase));
             #region Boundary/Role Validation
-            if (boundary == null || role==null)
+            if (boundary == null || role == null)
             {
                 return false;
             }
             #endregion
 
-           
+
             try
             {
                 AspNetUser user = new AspNetUser()
@@ -403,7 +431,7 @@ namespace BitzerIoC.Infrastructure.Repositories
                     UserName = userName,
                     Name = name,
                     Email = userName,
-                    Password = "-NO-PASSWORD-"+Guid.NewGuid(),
+                    Password = "-NO-PASSWORD-" + Guid.NewGuid(),
                     PhoneNumber = phoneNumber,
                     IsEnable = isEnable,
                     CreatedDate = DateTime.Now,
@@ -478,10 +506,10 @@ namespace BitzerIoC.Infrastructure.Repositories
                 #endregion
 
                 using (_db.Database.BeginTransaction())
-                {                  
+                {
                     user.AspNetUserRoles = new List<AspNetUserRole>();
                     user.AspNetUserRoles.Add(new AspNetUserRole() { Role = role, RoleId = role.RoleId, UserBoundary = ub, UserBoundaryId = ub.UserBoundaryId });
-             
+
                     _db.AspNetUsers.Add(user);
                     _db.SaveChanges();
                     _db.Database.CommitTransaction();
@@ -494,11 +522,11 @@ namespace BitzerIoC.Infrastructure.Repositories
                 LogHelper.WriteLog(TAG, ex);
                 throw ex;
             }
-               
+
         }
 
 
-       
+
 
 
         /// <summary>
@@ -558,7 +586,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="userBoundary"></param>
         private static void UpdateUserRole(string userId, string oldRoleId, AspNetUser user, AspNetRole newRole, UserBoundary userBoundary)
         {
-            if (oldRoleId.Equals(newRole.RoleId,StringComparison.OrdinalIgnoreCase))
+            if (oldRoleId.Equals(newRole.RoleId, StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
@@ -596,9 +624,9 @@ namespace BitzerIoC.Infrastructure.Repositories
         public AspNetUser GetUserWithRole(string userId)
         {
             AspNetUser user = (from usr in _db.AspNetUsers.Include(u => u.AspNetUserRoles).ThenInclude(r => r.Role)
-                                where usr.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
-                                select usr).SingleOrDefault();
-            
+                               where usr.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
+                               select usr).SingleOrDefault();
+
             return user;
         }
 
@@ -610,11 +638,11 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="userId">UserId</param>
         /// <param name="boundaryId">BoundaryId</param>
         /// <returns>UserBoundaries object</returns>
-        public UserBoundary GetUserBoundary(string userId,int boundaryId)
+        public UserBoundary GetUserBoundary(string userId, int boundaryId)
         {
             UserBoundary userBoundary = _db.UserBoundaries.Where(ub => ub.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
                                                                             && ub.BoundaryId == boundaryId
-                                                                            && ub.UserId!=null).SingleOrDefault();
+                                                                            && ub.UserId != null).SingleOrDefault();
             return userBoundary;
         }
 
@@ -626,9 +654,9 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="username">Username</param>
         /// <param name="isEnabled">true or false</param>
         /// <returns>AspNetUsers object</returns>
-        public AspNetUser GetUser(string username,bool isEnabled)
+        public AspNetUser GetUser(string username, bool isEnabled)
         {
-            return _db.AspNetUsers.Where(x => x.IsEnable == isEnabled).SingleOrDefault((x => x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)));         
+            return _db.AspNetUsers.Where(x => x.IsEnable == isEnabled).SingleOrDefault((x => x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)));
         }
 
 
@@ -641,7 +669,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         public AspNetUser GetUser(string username)
         {
             return _db.AspNetUsers.SingleOrDefault(x => x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
-            
+
         }
 
         /// <summary>
@@ -668,7 +696,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <returns>true if successful</returns>
         public bool DeleteUser(string userId)
         {
-            AspNetUser user = this.GetUserWithChildEntities(userId);                   
+            AspNetUser user = this.GetUserWithChildEntities(userId);
 
             if (user != null)
             {
@@ -689,9 +717,9 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="userId">UserId</param>
         /// <param name="deviceId">Targeted device id</param>
         /// <returns></returns>
-        public bool DeleteUserDevice(string userId,int deviceId)
+        public bool DeleteUserDevice(string userId, int deviceId)
         {
-            UserDevice userDevice = (from  ud in _db.UserDevices
+            UserDevice userDevice = (from ud in _db.UserDevices
                                      where ud.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
                                            && ud.DeviceId == deviceId
                                      select ud)
@@ -702,7 +730,7 @@ namespace BitzerIoC.Infrastructure.Repositories
                 _db.SaveChanges();
                 return true;
             }
-            return false; 
+            return false;
         }
 
         /// <summary>
@@ -761,7 +789,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         {
             return (from ud in _db.UserDevices
                     where ud.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)
-                    select ud).ToList();             
+                    select ud).ToList();
         }
 
         /// <summary>
@@ -771,13 +799,13 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <returns></returns>
         public AspNetUser GetUserWithChildEntities(string userId)
         {
-            AspNetUser user = _db.AspNetUsers.Include(uc=>uc.UserClaims)
+            AspNetUser user = _db.AspNetUsers.Include(uc => uc.UserClaims)
                                             .Include(u => u.AspNetUserRoles)
                                             .Include(ud => ud.UserDevices)
                                             .Include(ub => ub.UserBoundaries).
                                              SingleOrDefault(u => u.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase));
             return user;
-                         
+
         }
 
 
@@ -791,7 +819,7 @@ namespace BitzerIoC.Infrastructure.Repositories
         /// <param name="hashedPassword"></param>
         /// <param name="secureHashSalt"></param>
         /// <returns></returns>
-        public bool UpdatePassword(string userName, string hashedPassword,string secureHashSalt)
+        public bool UpdatePassword(string userName, string hashedPassword, string secureHashSalt)
         {
             if (!string.IsNullOrEmpty(hashedPassword))
             {

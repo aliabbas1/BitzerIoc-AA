@@ -2,6 +2,8 @@
 
     BindGatewayGrid();
     
+    /*------------  Functions ------------------*/
+
     /* bind Gateway Grid*/
     /*Angular-Ui-Grid version 3.1.1*/
     /*PR version 1.0*/
@@ -33,12 +35,7 @@
 
         ]
     }
-    /*  end binding of gateway ui-grid*/
-
-
-
-
-    /*------------  Functions ------------------*/
+    /*  end binding of gateway ui-grid*/ 
 
     /* Search Gateways from ui-grid*/
     /* this function is temporary and will be remove when we enable filter in $scope.gatewayGridOpts. */

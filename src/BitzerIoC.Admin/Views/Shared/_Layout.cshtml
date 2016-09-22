@@ -22,6 +22,7 @@
         <script src="~/spa/controllers/gatewaysController.js"></script>
         <script src="~/spa/controllers/usersController.js"></script>
         <script src="~/spa/controllers/createUserController.js"></script>
+        <script src="~/spa/controllers/updateUserController.js"></script>
         <script src="~/spa/controllers/profileController.js"></script>
         <script src="~/spa/controllers/createGatewayController.js"></script>
         <script src="~/spa/controllers/updateGatewayController.js"></script>
@@ -65,7 +66,7 @@
                     @* "hidden-xs" class is hidden in extra small devices(tablet, mobile) i.e <768px and visible in >=768px devices *@
                     @* "visible-xs" class is visible in extra small devices(tablet, mobile) i.e <768px and hide in >=768px devices  *@
                     @* Author: Ali Abbas , version 1.0 *@
-                    
+
                     <li class="users">
                         <a class="hidden-xs" href="{{UsersLinkUrl}}">{{UsersLinkText}}</a>
                         <a class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse" href="{{UsersLinkUrl}}">{{UsersLinkText}}</a>
@@ -105,17 +106,17 @@
     </environment>
     <environment names="Staging,Production">
         @{
-            //ToDo: Pending Issue, Jquery loading twice so manage environemnt
+//ToDo: Pending Issue, Jquery loading twice so manage environemnt
         }
         @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>*@
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>*@
     </environment>
 
     @RenderSection("scripts", required: false)

@@ -1,109 +1,63 @@
-﻿app.controller('usersController', function ($scope, $filter, $rootScope, $location, BitzerIocAdminService)
-{
+﻿app.controller('usersController', function ($scope, $filter, $location, BitzerIocAdminService) {
 
-        $rootScope.UserId = "";
-        $rootScope.Email = "";
-        $rootScope.Name = "";
-        $rootScope.Role = "";
-        $rootScope.RoleId = "";
-        $rootScope.Phone = "";
-        $rootScope.IsEnable = "";
-        $rootScope.HiddenRoleId = "";
-        var user = "";
+    /*Bind User Gridview*/
+    BindUserGrid();
 
-        /*Bind User Gridview*/
-        BindUserGrid();
+    /*------------  Functions ------------------*/
 
+    /// funtion redirect to upateuser page
+    /// version 1.0 
+    $scope.EditUser = function (userId) {
+        $location.path("/admin/updateuser/" + userId);
+    }
 
-     /*Edit user button event*/
-        $scope.EditUser = function (Email)
-        {
-            $location.path("/admin/createuser");
-            var profile = BitzerIocAdminService.GetProfileByEmail(Email);
-
-            profile.then(function (result)
-            {
-                if (result.data != "" || result.data != null)
-                {
-                    $rootScope.UserId = result.data.userId;
-                    $rootScope.Email = result.data.email;
-                    $rootScope.Name = result.data.name;
-                    $rootScope.RoleId = result.data.roleId[0];
-                    $rootScope.HiddenRoleId = result.data.roleId[0];
-                    $rootScope.Phone = result.data.phoneNumber == "004500000000" ? "" : result.data.phoneNumber;
-                    $rootScope.IsEnable = result.data.isEnable;
-                    $('#Email').attr('disabled', true);
-                }
-            });
-
-        }
-
-    /* /Edit user button event*/
-
-
-
-    $scope.DeleteUserModal = function (Email) 
-    {
+    /// funtion open delete user popup
+    /// version 1.0 
+    $scope.DeleteUserModal = function (Email) {
         $('#modalTitle').html("Delete user?");
-        $("#HiddenId").val(Email);
+        $("#txtHdnUserId").val(Email);
         $('#DeleteUserModal').modal();
     }
 
-    $scope.DeleteUser = function ()
-    {
-        var UserId = $("#HiddenId").val();
+    /// funtion delete the user record if it has only one boundary access.
+    /// if user have multiple boundaries then delete user in that specific boundary. 
+    /// version 1.0 
+    $scope.DeleteUser = function () {
+        var UserId = $("#txtHdnUserId").val();
         var boundary = BitzerIocAdminService.GetUserBoundaries(UserId);
         var deleteStatus = "";
 
-        boundary.then(function (result)
-        {
-            if (result.data.length == 1)
-            {
+        boundary.then(function (result) {
+            if (result.data.length == 1) {
                 deleteStatus = BitzerIocAdminService.DeleteUser(UserId);
-                deleteStatus.then(function (result)
-                {
-                    if (result.data == true)
-                    {
+                deleteStatus.then(function (result) {
+                    if (result.data == true) {
                         $('#DeleteUserModal').modal('hide');
                         BindUserGrid();
                     }
-                        
                 });
-
             }
-            if (result.data.length > 1)
-            {
+            if (result.data.length > 1) {
                 deleteStatus = BitzerIocAdminService.DeleteUserBoundary(UserId);
-                deleteStatus.then(function (result)
-                {
-                    if (result.data == true)
-                    {
+                deleteStatus.then(function (result) {
+                    if (result.data == true) {
                         $('#DeleteUserModal').modal('hide');
                         BindUserGrid();
                     }
-                    
                 });
             }
         });
     }
 
-
-    /*------------  Functions ------------------*/
-
-    /*To Do: Should be ready fro UI-Grid*/
     /* Function Bid the Users Grid*/
-    function BindUserGrid()
-    {
+    function BindUserGrid() {
         /*Get the users*/
         var users = BitzerIocAdminService.GetUsers();
-        users.then(function (result)
-        {
+        users.then(function (result) {
             $scope.userGridOpts.data = result.data;
             $scope.searchUser = result.data;
         });
     }
-
-    /*------------ / Functions ------------------*/
 
     /* bind user ui-Grid*/
     /*Angular-Ui-Grid version 3.1.1*/
@@ -124,7 +78,7 @@
             },
             {
                 field: 'Edit', displayName: 'Edit', enableColumnMenu: false, width: '8%', cellTemplate:
-                    '<a class="glyphicon glyphicon-pencil edit-btn" ng-click="grid.appScope.EditUser(row.entity.email)"></a>'
+                    '<a class="glyphicon glyphicon-pencil edit-btn" ng-click="grid.appScope.EditUser(row.entity.userId)"></a>'
             },
             {
                 field: 'Delete', displayName: 'Delete', enableColumnMenu: false, width: '8%', cellTemplate:
@@ -135,13 +89,13 @@
     /*  end binding of users ui-grid*/
 
 
-    /*------------  Functions ------------------*/
     /* Search user from Grid*/
     /* this function is temporary and will be remove when we enable filter in $scope.userGridOpts. */
     /*Author = Ali Abbas, version 1.0*/
     $scope.searchUsers = function () {
         $scope.userGridOpts.data = $filter('filter')($scope.searchUser, $scope.filterUser, undefined);
     };
+
     /*------------ / Functions ------------------*/
 });
 

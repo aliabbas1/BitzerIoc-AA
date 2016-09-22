@@ -1,8 +1,13 @@
 ﻿
 app.controller('profileController', function ($scope, $rootScope, $location, BitzerIocAdminService) {
-    var Email = $('#hiddenEmail').val();
-    var profile = BitzerIocAdminService.GetProfileByEmail(Email);
 
+    /*------------  Functions ------------------*/
+
+    var Email = $('#hiddenEmail').val();
+
+    /// Get Profile by email
+    /// Version 1.0
+    var profile = BitzerIocAdminService.GetProfileByEmail(Email);
     profile.then(function (result) {
         if (result.data != "" || result.data != null) {
             $scope.txtName = result.data.name;
@@ -15,6 +20,9 @@ app.controller('profileController', function ($scope, $rootScope, $location, Bit
             $scope.error = errors;
         });
 
+    /// Function to Validate Password, if password is valid then enable new password and confirm password fileds
+    /// if password is not valid it display error message.
+    /// version 1.0
     $scope.ValidatePassword = function () {
         $scope.differentPassword = false;
         var CurrentPassword = $scope.txtCurrentPassword;
@@ -37,7 +45,9 @@ app.controller('profileController', function ($scope, $rootScope, $location, Bit
             });
         }
     }
-    /*Function to update password*/
+
+    /// Function to update password
+    /// version 1.0
     $scope.UpdatePassword = function () {
         var NewPassword = $scope.txtNewPassword;
         if ($scope.txtCurrentPassword == $scope.txtNewPassword) {
@@ -56,10 +66,10 @@ app.controller('profileController', function ($scope, $rootScope, $location, Bit
             });
         }
     }
-    /* /Function to update password*/
 
 
-
+    /// Function to update name of user
+    /// version 1.0
     $scope.UpdateName = function () {
         var Name = $scope.txtName;
         var SaveName = BitzerIocAdminService.UpdateName(Email, Name);
@@ -72,12 +82,16 @@ app.controller('profileController', function ($scope, $rootScope, $location, Bit
         });
     }
 
+    /// Function reset profile name of user
+    /// version 1.0
     $scope.reset = function () {
         $scope.txtName = angular.copy($scope.master);
         $('.btnProfile').prop("disabled", true);
         $scope.successMsgs = false;
     };
 
+    /// Function display success message and disable save button 
+    /// version 1.0
     $scope.namechanged = function () {
         $('.btnProfile').prop("disabled", false);
         $scope.successMsgs = false;
@@ -87,6 +101,7 @@ app.controller('profileController', function ($scope, $rootScope, $location, Bit
 
         if ($scope.txtName == undefined)
             $('#btnSaveProfile').prop("disabled", true);
-
     }
+
+    /*------------ / Functions ------------------*/
 });
